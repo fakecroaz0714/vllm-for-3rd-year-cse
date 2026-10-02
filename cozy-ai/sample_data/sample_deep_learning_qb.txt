@@ -1,0 +1,33 @@
+DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING
+SEMESTER VII — UNIVERSITY QUESTION BANK (2024-2025)
+SUBJECT: DEEP LEARNING (CS8083)
+
+UNIT I: FUNDAMENTALS OF DEEP NETWORKS & OPTIMIZATION
+
+1. Define activation function. Explain why non-linear activation functions are essential in deep neural networks. [5 Marks] (2024)
+
+2. Explain the architecture and detailed working of the Backpropagation algorithm with mathematical formulation and weight update rule. [13 Marks] (2025)
+
+3. Compare Stochastic Gradient Descent (SGD), Batch Gradient Descent, and Adam optimizer with equations and convergence graphs. [10 Marks] (2023)
+
+4. What is the vanishing gradient problem? How do ReLU activation and Residual connections mitigate it? [5 Marks] (2024)
+
+5. What is overfitting? Describe three regularization techniques used to prevent overfitting in deep models. [5 Marks] (2025)
+
+UNIT II: CONVOLUTIONAL NEURAL NETWORKS (CNN)
+
+6. Explain the complete architecture of Convolutional Neural Networks (CNN) with neat diagram, working of convolution layer, stride, padding, pooling layer, and classification layer. [13 Marks] (2025)
+
+7. Differentiate between Max Pooling and Average Pooling with a numerical 4x4 matrix example. [5 Marks] (2023)
+
+8. What are the advantages of parameter sharing and translation invariance in CNNs compared to dense feed-forward networks? [5 Marks] (2024)
+
+9. Describe the LeNet-5 architecture and explain the purpose of each layer in digit recognition. [8 Marks] (2022)
+
+UNIT III: RECURRENT ARCHITECTURES & ATTENTION
+
+10. Explain the architecture of Long Short-Term Memory (LSTM) networks and describe the role of Forget, Input, and Output gates. [13 Marks] (2025)
+
+11. What is an Autoencoder? Explain the difference between standard autoencoders and Variational Autoencoders (VAEs). [8 Marks] (2024)
+
+12. Explain the Self-Attention mechanism in Transformer architectures with Query, Key, and Value vectors and the scaled dot-product formula. [13 Marks] (2025)

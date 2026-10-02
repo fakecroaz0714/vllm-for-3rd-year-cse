@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cozy.ai — Your Exam & Placement Companion</title>
+  <meta name="description" content="AI exam preparation and placement training companion powered by Qwen. Domain-focused architecture for semester exams and technical placement preparation.">
+  
+  <!-- Google Fonts: Quicksand & Nunito Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..900;1,6..12,300..900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Sticky Header / Nav -->
+  <header class="header-nav">
+    <div class="nav-container">
+      <div class="brand-block" id="brandHomeBtn">
+        <div class="logo-cloud">☁️</div>
+        <div class="brand-text">
+          <h1>cozy.ai</h1>
+          <span>Your exam & placement companion ✨</span>
+        </div>
+      </div>
+
+      <!-- Mode Switcher Tabs -->
+      <nav class="mode-switcher" aria-label="Mode Switcher">
+        <button id="modeSemesterBtn" class="mode-tab active">
+          <span>📚</span>
+          <span>Semester Subjects</span>
+        </button>
+        <button id="modePlacementBtn" class="mode-tab">
+          <span>🎯</span>
+          <span>Placement Training</span>
+        </button>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Live Model Indicator Pill -->
+        <div id="vllmBadge" class="vllm-badge connected" title="Click to view inference engine settings">
+          <span class="status-dot"></span>
+          <span id="vllmStatusText">🟢 Qwen 2.5 (7B)</span>
+        </div>
+
+        <!-- Settings Button -->
+        <button id="settingsBtn" class="btn-icon" title="Engine Settings">
+          ⚙️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper">
+
+    <!-- VIEW 1: SEMESTER HUB VIEW -->
+    <div id="semesterHubView" class="view-panel active">
+      <section class="welcome-card">
+        <div class="welcome-info">
+          <h2>Good evening 👋 Semester Exam Studio</h2>
+          <p>
+            5 first-class subjects configured with university syllabus taxonomies. Select any subject to explore
+            evidence-based important questions, examine diagrams, or generate marks-oriented exam answers with Qwen.
+          </p>
+        </div>
+        <div class="welcome-actions">
+          <button id="hubQuickStudyBtn" class="btn btn-primary">
+            <span>⚡</span>
+            <span>Study Deep Learning</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 5 Subject Cards Grid -->
+      <div class="subject-cards-grid" id="subjectCardsGrid">
+        <!-- Dynamically injected from SubjectRegistry -->
+      </div>
+    </div>
+
+    <!-- VIEW 2: SUBJECT STUDIO WORKSPACE -->
+    <div id="subjectStudioView" class="view-panel">
+      <!-- Studio Top Navigation -->
+      <div class="studio-top-bar">
+        <div class="studio-title-block">
+          <button id="backToHubBtn" class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;">
+            <span>←</span>
+            <span>All Subjects</span>
+          </button>
+          <span id="activeSubjectIcon" style="font-size: 26px;">🧠</span>
+          <div>
+            <h2 id="activeSubjectTitle" style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text-main);">
+              Deep Learning & Predictive Modelling
+            </h2>
+            <span id="activeSubjectCode" class="subject-code-tag">CS8083</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button id="studioResetBankBtn" class="btn btn-secondary" style="font-size: 12px;">
+            <span>🔄</span>
+            <span>Reset Syllabus Questions</span>
+          </button>
+          <button onclick="document.getElementById('fileInput').click()" class="btn btn-primary" style="font-size: 12px;">
+            <span>📄</span>
+            <span>Upload Question Bank</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Two-Column Workspace -->
+      <div class="workspace-grid">
+        <!-- Left Pane: Question Bank & Important Questions -->
+        <section class="cozy-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-icon">📄</span>
+              <h3 class="card-title">Question Bank & Evidence</h3>
+            </div>
+            <span id="questionCountBadge" class="count-badge">5 Qs</span>
+          </div>
+
+          <!-- Upload Dropzone -->
+          <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload Question Bank">
+            <div class="dropzone-icon">☁️ 📄</div>
+            <div class="dropzone-text">Drop your Question Bank PDF here</div>
+            <div class="dropzone-sub">Extracts questions, units, marks, and frequency evidence</div>
+            <input type="file" id="fileInput" class="hidden-input" accept=".pdf,.docx,.doc,.txt">
+          </div>
+
+          <!-- Priority Filter Pills -->
+          <div class="filter-bar">
+            <button class="filter-pill active" data-filter="all">All</button>
+            <button class="filter-pill" data-filter="must">🔥 Must Study</button>
+            <button class="filter-pill" data-filter="should">⭐ Should Study</button>
+            <button class="filter-pill" data-filter="13m">13 Marks</button>
+            <button class="filter-pill" data-filter="5m">5 Marks</button>
+          </div>
+
+          <!-- Questions Scroll Area -->
+          <div id="questionsContainer" class="questions-scroll-area">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Right Pane: cozy.ai Exam Answer Engine -->
+        <section class="cozy-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-icon">🧠</span>
+              <h3 class="card-title">cozy.ai Exam Answer Engine</h3>
+            </div>
+          </div>
+
+          <!-- Controls: Marks & Style -->
+          <div class="chat-controls-box">
+            <!-- Marks Row -->
+            <div class="control-row">
+              <span class="control-label">Marks:</span>
+              <div class="toggle-group" id="marksToggleGroup">
+                <button class="toggle-btn marks-btn" data-marks="2">2 Marks</button>
+                <button class="toggle-btn marks-btn" data-marks="5">5 Marks</button>
+                <button class="toggle-btn marks-btn" data-marks="10">10 Marks</button>
+                <button class="toggle-btn marks-btn active" data-marks="13">13 Marks</button>
+              </div>
+            </div>
+
+            <!-- Style Row -->
+            <div class="control-row">
+              <span class="control-label">Style:</span>
+              <div class="toggle-group" id="styleToggleGroup">
+                <button class="toggle-btn style-btn active" data-style="Easy">Easy 🧸</button>
+                <button class="toggle-btn style-btn" data-style="Exam Ready">Exam Ready 🎯</button>
+                <button class="toggle-btn style-btn" data-style="Detailed">Detailed 📚</button>
+                <button class="toggle-btn style-btn" data-style="Quick">Quick ⚡</button>
+              </div>
+
+              <!-- Explain simply toggle -->
+              <label class="checkbox-pill" title="Includes beginner real-world analogies alongside formal academic answers">
+                <input type="checkbox" id="explainSimplyCheckbox" checked>
+                <span>🧸 Explain simply</span>
+              </label>
+            </div>
+
+            <!-- Question Input Box -->
+            <div class="question-input-wrapper">
+              <input
+                type="text"
+                id="questionInput"
+                class="question-input"
+                placeholder="Ask cozy.ai anything or select a question on the left..."
+                value="Explain Convolutional Neural Networks (CNN) architecture and working."
+              >
+              <button id="generateBtn" class="btn btn-primary">
+                <span>✨</span>
+                <span>Generate Answer</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Answer Card Output -->
+          <div id="answerCard" class="answer-container" style="display: none;">
+            <!-- Dynamically populated by app.js -->
+          </div>
+
+          <!-- Initial Answer Placeholder -->
+          <div id="answerPlaceholder" style="text-align: center; padding: 48px 20px; color: var(--text-muted);">
+            <div style="font-size: 42px; margin-bottom: 12px;">☁️🎓</div>
+            <h4 style="font-family: var(--font-heading); font-size: 17px; color: var(--text-main); margin-bottom: 6px;">
+              Select any question to begin
+            </h4>
+            <p style="font-size: 13.5px; max-width: 440px; margin: 0 auto;">
+              cozy.ai structures answers with definitions, intuitive analogies, step-by-step working, ASCII architecture diagrams, code, and keywords.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- VIEW 3: PLACEMENT TRAINING HUB -->
+    <div id="placementHubView" class="view-panel">
+      <section class="welcome-card" style="background: linear-gradient(135deg, #FBF8FF 0%, #F1EAFA 100%); border-color: #E2D4F5;">
+        <div class="welcome-info">
+          <h2 style="color: #4A154B;">🎯 Placement Training Studio</h2>
+          <p>
+            Campus recruitment & placement preparation module powered by Qwen. Practice Quantitative Aptitude with formula shortcuts,
+            DSA coding with time/space complexities, and Technical & HR interview questions using the STAR framework.
+          </p>
+        </div>
+      </section>
+
+      <!-- Placement Track Buttons -->
+      <div class="placement-tracks-bar" id="placementTracksBar">
+        <button class="placement-track-btn active" data-track="aptitude">
+          <span>🧮</span>
+          <span>Quantitative Aptitude</span>
+        </button>
+        <button class="placement-track-btn" data-track="coding">
+          <span>💻</span>
+          <span>Coding & DSA</span>
+        </button>
+        <button class="placement-track-btn" data-track="technical">
+          <span>💼</span>
+          <span>Technical Interview</span>
+        </button>
+        <button class="placement-track-btn" data-track="hr">
+          <span>🤝</span>
+          <span>HR & Behavioral</span>
+        </button>
+      </div>
+
+      <!-- Quick Launch Topic Pills -->
+      <div style="margin-bottom: 14px;">
+        <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+          Quick Practice Topics:
+        </span>
+      </div>
+      <div class="placement-topic-pills" id="placementTopicPills">
+        <!-- Dynamically injected based on track -->
+      </div>
+
+      <!-- Placement Two-Column Practice Area -->
+      <div class="workspace-grid">
+        <!-- Curated Placement Questions -->
+        <section class="cozy-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-icon">🎯</span>
+              <h3 class="card-title" id="placementListTitle">Placement Question Bank</h3>
+            </div>
+            <span id="placementCountBadge" class="count-badge">5 Qs</span>
+          </div>
+
+          <div id="placementQuestionsContainer" class="questions-scroll-area">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Live Placement Practice Answer Studio -->
+        <section class="cozy-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="card-icon">💡</span>
+              <h3 class="card-title">Solution & Interview Strategy</h3>
+            </div>
+          </div>
+
+          <div id="placementAnswerCard" class="answer-container">
+            <div id="placementPlaceholder" style="text-align: center; padding: 48px 20px; color: var(--text-muted);">
+              <div style="font-size: 40px; margin-bottom: 12px;">🎯💼</div>
+              <h4 style="font-family: var(--font-heading); font-size: 17px; color: var(--text-main); margin-bottom: 6px;">
+                Choose an aptitude problem or interview topic
+              </h4>
+              <p style="font-size: 13.5px; max-width: 440px; margin: 0 auto;">
+                cozy.ai generates step-by-step math solutions, shortcut tricks, optimal Big-O complexities, clean code, and STAR responses.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Engine Settings Modal -->
+  <div id="settingsModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚙️ Inference Engine Settings</h3>
+        <button id="closeModalBtn" class="close-modal-btn">&times;</button>
+      </div>
+
+      <!-- Quick Presets -->
+      <div style="margin-bottom: 16px;">
+        <label class="form-label">Quick Presets</label>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <button type="button" id="presetOllama" class="filter-pill active" style="font-size: 11px;">💻 Local Qwen 2.5 7B (Mac M4)</button>
+          <button type="button" id="presetVllm" class="filter-pill" style="font-size: 11px;">⚡ Remote vLLM (8000)</button>
+          <button type="button" id="presetGroq" class="filter-pill" style="font-size: 11px;">🚀 Groq Cloud (Free)</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="vllmUrlInput">Base URL (OpenAI-compatible)</label>
+        <input
+          type="text"
+          id="vllmUrlInput"
+          class="form-input"
+          placeholder="http://localhost:11434/v1"
+          value="http://localhost:11434/v1"
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="vllmModelInput">Model Name</label>
+        <input
+          type="text"
+          id="vllmModelInput"
+          class="form-input"
+          placeholder="qwen2.5:7b"
+          value="qwen2.5:7b"
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="vllmApiKeyInput">API Key (Optional / Cloud)</label>
+        <input
+          type="password"
+          id="vllmApiKeyInput"
+          class="form-input"
+          placeholder="EMPTY (for local Ollama/vLLM)"
+          value="EMPTY"
+        >
+      </div>
+
+      <div id="vllmTestFeedback" style="font-size: 13px; font-weight: 600; margin-bottom: 14px; min-height: 20px;"></div>
+
+      <div style="display: flex; justify-content: space-between; gap: 10px;">
+        <button id="testVllmBtn" class="btn btn-secondary">
+          <span>🔄</span>
+          <span>Test Connection</span>
+        </button>
+        <button id="saveSettingsBtn" class="btn btn-primary">
+          <span>Save Settings</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">Action completed!</div>
+
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
