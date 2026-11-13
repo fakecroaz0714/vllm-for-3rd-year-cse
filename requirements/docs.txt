@@ -6,9 +6,9 @@ babel==2.18.0
     # via
     #   mkdocs-git-revision-date-localized-plugin
     #   mkdocs-material
-backrefs==8.0
+backrefs==8.1
     # via mkdocs-material
-bracex==3.0.1
+bracex==3.1
     # via wcmatch
 certifi==2026.7.22
     # via requests
@@ -26,7 +26,7 @@ ghp-import==2.1.0
     #   properdocs
 gitdb==4.0.12
     # via gitpython
-gitpython==3.1.62
+gitpython==3.2.1
     # via mkdocs-git-revision-date-localized-plugin
 griffelib==2.3.0
     # via mkdocstrings-python
@@ -80,7 +80,7 @@ mkdocs-gen-files==0.6.1
     # via -r requirements/docs.in
 mkdocs-get-deps==0.2.2
     # via mkdocs
-mkdocs-git-revision-date-localized-plugin==1.6.0
+mkdocs-git-revision-date-localized-plugin==1.7.0
     # via -r requirements/docs.in
 mkdocs-glightbox==0.5.2
     # via -r requirements/docs.in
@@ -149,7 +149,7 @@ regex==2026.9.10
     # via -r requirements/docs.in
 requests==2.34.2
     # via mkdocs-material
-ruff==0.16.8
+ruff==0.17.4
     # via -r requirements/docs.in
 selectolax==0.4.12
     # via mkdocs-glightbox
@@ -159,6 +159,7 @@ smmap==5.0.3
     # via gitdb
 typing-extensions==4.16.0
     # via
+    #   mkdocstrings-python
     #   pydantic
     #   pydantic-core
     #   typing-inspection
